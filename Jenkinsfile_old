@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    tools { 
+      maven 'M2_HOME' 
+      jdk 'JAVA_HOME' 
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout source code from Git repository
+                git url: 'https://git.wa-llet.com/Wal-let/srv-auth.git',
+                 credentialsId: 'aton'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Build the Spring Boot application
+            sh 'mvn clean package'
+            }
+        }
+      stage('Test') {
+            steps {
+                // Run tests, if applicable
+                sh 'mvn test'
+            }
+        }
+        
+        
+    }
+}
